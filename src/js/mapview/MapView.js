@@ -64,6 +64,7 @@ L.App.MapView = L.Class.extend({
       attribution: 'Pictometry International'
     });
 
+
     this._baseLayers = {
       'Imagery': aerialBasemap
     };
@@ -76,6 +77,8 @@ L.App.MapView = L.Class.extend({
     console.log('app.mapview.MapView::_createOperationalLayers', arguments);
 
     this._opLayers = null;
+
+    var referenceOverlay = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/Reference_Overlay_WM/MapServer');
 
     this._waterSystemsLocations = new ClusteredFeatureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0', {
       proxy: 'http://sjcgis.org/proxy/proxy.ashx',
@@ -111,6 +114,7 @@ L.App.MapView = L.Class.extend({
       return L.Util.template('<p>{Sys_Name}<br/>ID: {Sys_ID}<br/>Type: {SysGrp}</p>', feature.properties);
     });
 
+    this._map.addLayer(referenceOverlay);
     this._map.addLayer(this._waterSystemsLocations);
     this._map.addLayer(this._waterSystemsPoly);
 
