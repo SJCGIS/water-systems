@@ -63,6 +63,16 @@ module.exports = function (grunt) {
         }]
       }
     },
+    cssmin: {
+      options: {
+        sourceMap: false
+      },
+      target: {
+        files: {
+          'dist/css/app.min.css': ['dist/css/app.css']
+        }
+      }
+    },
     focus: {
       dev: {
         include: ['htmldev', 'stylesheets', 'jsdev', 'tests']
@@ -119,9 +129,11 @@ module.exports = function (grunt) {
     uglify: {
       app: {
         options: {
-          compress: true,
-          mangle: true,
-          sourceMap: true
+          compress: {
+            drop_console: true
+          },
+          mangle: false,
+          sourceMap: false
         },
         files: {
           'dist/js/L.App.min.js': ['dist/js/L.App.js']
@@ -168,6 +180,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -183,12 +196,12 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['karma']);
 
   //JS
-  grunt.registerTask('js:dev', ['jshint', 'browserify', 'uglify', 'test']);
+  grunt.registerTask('js:dev', ['jshint', 'browserify', 'test']);
   grunt.registerTask('js:prod', ['test', 'browserify', 'uglify']);
 
   // CSS
   grunt.registerTask('css:dev', ['copy:css', 'sass']);
-  grunt.registerTask('css:prod', ['copy:css', 'sass']);
+  grunt.registerTask('css:prod', ['copy:css', 'sass', 'cssmin']);
 
   // Assets
   grunt.registerTask('assets:dev', ['copy:fonts', 'copy:images']);
