@@ -8,6 +8,30 @@
 
     </head>
     <body>
+        <div id="sidebar" class="sidebar">
+            <!-- Nav Tabs -->
+            <ul class="sidebar-tabs" role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-list-alt"></i></a></li>
+                <li><a href="#info" role="tab"><i class="fa fa-info-circle"></i></a></li>
+            </ul>
+
+            <!-- Tab Panes -->
+            <div class="sidebar-content active">
+                <div class="sidebar-pane" id="home">
+                    <h1>Water Systems</h1>
+                    <p class="lorem">This web map shows Water System locations and boundaries in San Juan County WA. Water system boundaries are defined by the parcels included in the water system as set in the San Juan County Health Department's database. </p>
+
+                    <h3>How to Use</h3>
+                    <p class="lorem">Search for your water system name, address or parcel number. Click on a marker or boundary for information related to your water system.</p>
+
+                    <p class="lorem">Please report mapping errors to <a href="mailto:sjcgis@sanjuanco.com">sjcgis@sanjuanco.com</a></p>
+                </div>
+                <div class="sidebar-pane" id="info">
+                    <h1>Info</h1>
+                    <p class="lorem">Select a water system boundary on the map to see more information.</p>
+                </div>
+            </div>
+        </div>
         <div id="map"></div>
         <!-- build:[src]:dev js/L.App.js -->
         <script src="js/L.App.min.js" type="text/javascript"></script>

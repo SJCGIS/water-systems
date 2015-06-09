@@ -1,5 +1,6 @@
 require('../mapview/MapView');
 require('esri-leaflet-geocoder');
+require('sidebar-v2/js/leaflet-sidebar');
 
 L.App = L.App || {};
 
@@ -55,6 +56,10 @@ L.App.AppController = L.Class.extend({
       useArcgisWorldGeocoder: false,
       position: 'topright'
     }).addTo(this.mapView._map);
+
+    this.sidebar = new L.control.sidebar('sidebar').addTo(this.mapView._map);
+
+    this.sidebar.open('home');
 
     this.setupConnections();
   },

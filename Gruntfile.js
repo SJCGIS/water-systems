@@ -52,6 +52,15 @@ module.exports = function (grunt) {
           src: ['leaflet/dist/leaflet.css'],
           dest: 'node_modules/leaflet/dist/leaflet.scss'
         }]
+      },
+      fonts: {
+        files: [{
+          cwd: 'node_modules',
+          dest: 'dist/fonts/',
+          src: ['font-awesome/fonts/*'],
+          flatten: true,
+          expand: true
+        }]
       }
     },
     focus: {
@@ -181,9 +190,13 @@ module.exports = function (grunt) {
   grunt.registerTask('css:dev', ['copy:css', 'sass']);
   grunt.registerTask('css:prod', ['copy:css', 'sass']);
 
+  // Assets
+  grunt.registerTask('assets:dev', ['copy:fonts', 'copy:images']);
+  grunt.registerTask('assets:prod', ['copy:fonts', 'copy:images']);
+
   // Build wrappers
-  grunt.registerTask('build:dev', ['js:dev', 'copy:images', 'css:dev', 'processhtml:dev']);
-  grunt.registerTask('build:prod', ['js:prod', 'copy:images', 'css:prod', 'processhtml:prod']);
+  grunt.registerTask('build:dev', ['js:dev', 'assets:dev', 'css:dev', 'processhtml:dev']);
+  grunt.registerTask('build:prod', ['js:prod', 'assets:prod', 'css:prod', 'processhtml:prod']);
   // Serve locally on :8000
   grunt.registerTask('serve:dev', ['connect:dev', 'open:dev', 'focus:dev']);
   grunt.registerTask('serve:prod', ['connect:prod', 'open:prod', 'focus:prod']);
