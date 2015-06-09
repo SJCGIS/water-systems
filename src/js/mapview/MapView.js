@@ -42,6 +42,7 @@ L.App.MapView = L.Class.extend({
     var waterSystemsLocations = this._waterSystemsLocations;
     var oldId;
 
+    // Highlight the clicked polygon
     waterSystemsPoly.on('click', function(e) {
       waterSystemsPoly.resetStyle(oldId);
       oldId = e.layer.feature.id;
@@ -51,6 +52,17 @@ L.App.MapView = L.Class.extend({
         weight: 3,
         opacity: 1
       });
+    });
+
+    // Turn off waterSystemLocations at large scales and turn on again at smaller scales
+    this._map.on('zoomend', function(e) {
+      var map = e.target;
+      var zoom = map.getZoom();
+      if (zoom >= 15 && map.hasLayer(waterSystemsLocations)) {
+        map.removeLayer(waterSystemsLocations);
+      } else if (zoom < 15 && map.hasLayer(waterSystemsLocations) === false) {
+        map.addLayer(waterSystemsLocations);
+      }
     });
 
   },
