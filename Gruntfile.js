@@ -185,7 +185,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-focus');
-  grunt.loadNpmTasks('grunt-gh-pages');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-processhtml');
@@ -216,6 +215,5 @@ module.exports = function (grunt) {
   // Overall build targets... dev and prod.  Default to dev
   grunt.registerTask('dev', ['build:dev', 'serve:dev']);
   grunt.registerTask('prod', ['build:prod', 'serve:prod']);
-  grunt.registerTask('deploy', ['build:prod', 'gh-pages']);
   grunt.registerTask('default', ['dev']);
 };
