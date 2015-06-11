@@ -10,13 +10,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
     browserify: {
       dist: {
-        src: ['src/js/*.js', 'src/js/**/*.js'],
+        src: ['src/js/*.js', 'src/js/**/*.js', '!src/js/ga.js', '!src/js/maptiks.js'],
         dest: 'dist/js/L.App.js'
       }
     },
     concat: {
       dist: {
-        src: ['src/js/*.js', 'src/js/**/*.js'],
+        src: ['src/js/*.js', 'src/js/**/*.js', '!src/js/ga.js', '!src/js/maptiks.js'],
         dest: 'dist/js/L.App.js'
       }
     },
