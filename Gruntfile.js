@@ -10,13 +10,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     browserify: {
       dist: {
-        src: ['src/js/*.js', 'src/js/**/*.js', '!src/js/ga.js', '!src/js/maptiks.js'],
-        dest: 'dist/js/L.App.js'
-      }
-    },
-    concat: {
-      dist: {
-        src: ['src/js/*.js', 'src/js/**/*.js', '!src/js/ga.js', '!src/js/maptiks.js'],
+        src: ['src/js/*.js', 'src/js/**/*.js', '!src/js/ga.js', '!src/js/maptiks.js', '!src/js/*.secret.*'],
         dest: 'dist/js/L.App.js'
       }
     },
@@ -179,7 +173,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
