@@ -63,7 +63,7 @@ module.exports = function (grunt) {
       },
       target: {
         files: {
-          'dist/css/app.min.css': ['dist/css/app.css']
+          'dist/css/app.min.css': ['dist/css/app_pure.css']
         }
       }
     },
@@ -109,6 +109,16 @@ module.exports = function (grunt) {
         }
       }
     },
+    purifycss: {
+      options: {
+        info: true
+      },
+      target: {
+        src: ['dist/index.html', 'dist/js/L.App.js'],
+        css: ['dist/css/app.css'],
+        dest: 'dist/css/app_pure.css'
+      }
+    },
     sass: {
       options: {
         style: 'compressed',
@@ -126,7 +136,7 @@ module.exports = function (grunt) {
           compress: {
             drop_console: true
           },
-          mangle: false,
+          mangle: true,
           sourceMap: false
         },
         files: {
@@ -181,6 +191,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-processhtml');
+  grunt.loadNpmTasks('grunt-purifycss');
   grunt.loadNpmTasks('grunt-sass');
 
   // Tasks
@@ -193,15 +204,15 @@ module.exports = function (grunt) {
 
   // CSS
   grunt.registerTask('css:dev', ['copy:css', 'sass']);
-  grunt.registerTask('css:prod', ['copy:css', 'sass', 'cssmin']);
+  grunt.registerTask('css:prod', ['copy:css', 'sass', 'purifycss', 'cssmin']);
 
   // Assets
   grunt.registerTask('assets:dev', ['copy:fonts', 'copy:images']);
   grunt.registerTask('assets:prod', ['copy:fonts', 'copy:images']);
 
   // Build wrappers
-  grunt.registerTask('build:dev', ['js:dev', 'assets:dev', 'css:dev', 'processhtml:dev']);
-  grunt.registerTask('build:prod', ['js:prod', 'assets:prod', 'css:prod', 'processhtml:prod']);
+  grunt.registerTask('build:dev', ['js:dev', 'assets:dev', 'processhtml:dev', 'css:dev']);
+  grunt.registerTask('build:prod', ['js:prod', 'assets:prod', 'processhtml:prod', 'css:prod']);
   // Serve locally on :8000
   grunt.registerTask('serve:dev', ['connect:dev', 'open:dev', 'focus:dev']);
   grunt.registerTask('serve:prod', ['connect:prod', 'open:prod', 'focus:prod']);

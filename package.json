@@ -39,6 +39,7 @@
     "grunt-karma": "^0.10.1",
     "grunt-open": "^0.2.3",
     "grunt-processhtml": "^0.3.7",
+    "grunt-purifycss": "^0.1.0",
     "grunt-sass": "^1.0.0",
     "karma": "^0.12.31",
     "karma-browserify": "^4.1.2",
