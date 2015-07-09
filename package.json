@@ -20,6 +20,7 @@
     "browserify": "^10.2.0",
     "chai": "^2.3.0",
     "connect-livereload": "^0.5.3",
+    "drmonty-leaflet-awesome-markers": "^2.0.2",
     "esri-leaflet": "^1.0.0-rc.7",
     "esri-leaflet-clustered-feature-layer": "^1.0.0-rc.4",
     "esri-leaflet-geocoder": "^1.0.0-rc.4",

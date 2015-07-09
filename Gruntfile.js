@@ -35,7 +35,11 @@ module.exports = function (grunt) {
       images: {
         cwd: 'node_modules',
         dest: 'dist/img/',
-        src: ['leaflet/dist/images/*','esri-leaflet-geocoder/dist/img/*'],
+        src: [
+          'leaflet/dist/images/*',
+          'esri-leaflet-geocoder/dist/img/*',
+          'drmonty-leaflet-awesome-markers/css/images/*'
+        ],
         flatten: true,
         expand: true
       },

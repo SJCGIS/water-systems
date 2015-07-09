@@ -54,19 +54,45 @@ L.App.AppController = L.Class.extend({
         })
       ],
       useArcgisWorldGeocoder: false,
-      position: 'topright'
+      position: 'topright',
+      collapseAfterResult: false
     }).addTo(this.mapView._map);
 
     this.sidebar = new L.control.sidebar('sidebar').addTo(this.mapView._map);
 
     this.sidebar.open('home');
 
+    this.results = new L.featureGroup().addTo(this.mapView._map);
+
     this.setupConnections();
   },
 
-  setupConnections: function() {
+  setupConnections: function(options) {
     console.log('app.controller.AppController::setupConnections', arguments);
 
+    var that = this;
+
+    var locationMarker = L.AwesomeMarkers.icon({
+      icon: 'fa-thumb-tack',
+      prefix: 'fa',
+      markerColor: 'red',
+      iconColor: 'white'
+    });
+
+    this.searchControl.on('results', function(data) {
+      that.results.clearLayers();
+      for(var i = data.results.length - 1; i >= 0; i--) {
+        that.results.addLayer(L.marker(data.results[i].latlng, {
+          icon: locationMarker,
+          title: data.results[i].text,
+          clickable: true
+        }));
+      }
+    });
+
+    this.results.on('click dblclick', function(evt) {
+      that.results.clearLayers();
+    });
   }
 
 });

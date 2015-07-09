@@ -26,7 +26,9 @@ L.App.MapView = L.Class.extend({
 
     this._map = L.map('map', {
       zoomControl: false,
-      minZoom: 9
+      minZoom: 9,
+      maptiks_id: 'map',
+      maptiks_debug: true
     }).setView([48.6, -123.0], 11);
 
     this._createBasemapLayers();
@@ -73,15 +75,21 @@ L.App.MapView = L.Class.extend({
     this._baseLayers = null;
 
     var aerialBasemap = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/Aerials_2013_WM/MapServer', {
-      attribution: 'Pictometry International'
+      attribution: 'Pictometry International',
+      maptiks_id: 'aerialBasemap'
+    });
+
+    var generalBasemap = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/General_Basemap_WM/MapServer', {
+      attribution: 'San Juan County GIS',
+      maptiks_id: 'generalBasemap'
     });
 
 
     this._baseLayers = {
-      'Imagery': aerialBasemap
+      'Streets': generalBasemap
     };
 
-    this._map.addLayer(aerialBasemap);
+    this._map.addLayer(generalBasemap);
 
   },
 
@@ -90,15 +98,19 @@ L.App.MapView = L.Class.extend({
 
     this._opLayers = null;
 
-    var referenceOverlay = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/Reference_Overlay_WM/MapServer');
+    var referenceOverlay = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/Reference_Overlay_WM/MapServer', {
+      maptiks_id: 'referenceOverlay'
+    });
 
     this._waterSystemsLocations = new ClusteredFeatureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0', {
       proxy: 'http://sjcgis.org/proxy/proxy.ashx',
-      disableClusteringAtZoom: 15
+      disableClusteringAtZoom: 15,
+      singleMarkerMode: true,
+      maptiks_id: 'waterSystemsLocations'
     });
 
     this._waterSystemsLocations.bindPopup(function(feature){
-      return L.Util.template('<p>{Sys_Name}<br/>ID: {Sys_ID}<br/>Type: {SysGrp}</p>', feature.properties);
+      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {SysGrp}</p>', feature.properties);
     });
 
     this._waterSystemsPoly = L.esri.featureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/1', {
@@ -109,24 +121,25 @@ L.App.MapView = L.Class.extend({
       style: function(feature) {
         switch(feature.properties.SysGrp) {
           case 'A':
-          return {color: '#ffb5a0'};
+          return {color: '#abd9e9', fillOpacity: 0.5};
           case 'A-TNC':
-          return {color: '#fcd5c4'};
+          return {color: '#2c7bb6', fillOpacity: 0.5};
           case 'B':
-          return {color: '#9e1906'};
+          return {color: '#fdae61', fillOpacity: 0.5};
           case '2-PTY':
-          return {color: '#370c03'};
+          return {color: '#d7191c', fillOpacity: 0.5};
         default:
-          return {color: 'white'};
+          return {color: 'white', fillOpacity: 0.5};
         }
-      }
+      },
+      maptiks_id: 'waterSystemsPoly'
     });
 
     this._waterSystemsPoly.bindPopup(function(feature) {
-      return L.Util.template('<p>{Sys_Name}<br/>ID: {Sys_ID}<br/>Type: {SysGrp}</p>', feature.properties);
+      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {SysGrp}</p>', feature.properties);
     });
 
-    this._map.addLayer(referenceOverlay);
+//    this._map.addLayer(referenceOverlay);
     this._map.addLayer(this._waterSystemsLocations);
     this._map.addLayer(this._waterSystemsPoly);
 
