@@ -32,30 +32,15 @@ L.App.AppController = L.Class.extend({
             return feature.properties.Sys_Name;
           }
         }),
-        new L.esri.Geocoding.Controls.Geosearch.Providers.MapService({
-          url: 'http://sjcgis.org/arcgis/rest/services/Polaris/LocationSearch/MapServer',
-          bufferRadius: 200,
-          label: 'Address',
-          layers: [0,2],
-          searchFields: ['FULLADDR', 'PIN'],
-          proxy: 'http://sjcgis.org/proxy/proxy.ashx',
-          formatSuggestion: function(feature) {
-            var suggestion;
-            switch (feature.layerId) {
-            case 0:
-              suggestion = feature.properties['Full Address'];
-              break;
-            case 2:
-              suggestion = feature.properties.PIN;
-              break;
-            }
-            return suggestion;
-          }
+        new L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService({
+          url: 'http://sjcgis.org/arcgis/rest/services/Tools/Polaris_Geolocator/GeocodeServer',
+          label: 'Polaris Geocoder',
+          proxy: 'http://sjcgis.org/proxy/proxy.ashx'
         })
       ],
       useArcgisWorldGeocoder: false,
       position: 'topright',
-      collapseAfterResult: false
+      useMapBounds: false
     }).addTo(this.mapView._map);
 
     this.sidebar = new L.control.sidebar('sidebar').addTo(this.mapView._map);
@@ -82,15 +67,17 @@ L.App.AppController = L.Class.extend({
     this.searchControl.on('results', function(data) {
       that.results.clearLayers();
       for(var i = data.results.length - 1; i >= 0; i--) {
-        that.results.addLayer(L.marker(data.results[i].latlng, {
+        var marker = L.marker(data.results[i].latlng, {
           icon: locationMarker,
           title: data.results[i].text,
           clickable: true
-        }));
+        });
+        that.results.addLayer(marker);
+        marker.bindPopup(data.results[i].text).openPopup();
       }
     });
 
-    this.results.on('click dblclick', function(evt) {
+    this.results.on('contextmenu', function(evt) {
       that.results.clearLayers();
     });
   }
