@@ -1,6 +1,6 @@
 {
   "name": "water-systems",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A web application showing water system boundaries in San Juan County. Water system boundaries are defined by the parcels included in the water system as set in the San Juan County Health Department database. Mapping errors should be directed to sjcgis@sanjuanco.com.",
   "main": "gruntfile.js",
   "scripts": {
