@@ -27,8 +27,7 @@ L.App.MapView = L.Class.extend({
     this._map = L.map('map', {
       zoomControl: false,
       minZoom: 9,
-      maptiks_id: 'map',
-      maptiks_debug: true
+      maptiks_id: 'map'
     }).setView([48.6, -123.0], 11);
 
     this._createBasemapLayers();
