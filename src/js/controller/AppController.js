@@ -1,6 +1,7 @@
 require('../mapview/MapView');
 require('esri-leaflet-geocoder');
 require('sidebar-v2/js/leaflet-sidebar');
+var humane = require('humane-js');
 
 L.App = L.App || {};
 
@@ -66,20 +67,24 @@ L.App.AppController = L.Class.extend({
 
     this.searchControl.on('results', function(data) {
       that.results.clearLayers();
-      for(var i = data.results.length - 1; i >= 0; i--) {
-        var marker = L.marker(data.results[i].latlng, {
-          icon: locationMarker,
-          title: data.results[i].text,
-          clickable: true
-        });
-        that.results.addLayer(marker);
-        marker.bindPopup(data.results[i].text).openPopup();
+      if(data.results.length === 0){
+        humane.log('No results from search');
+      } else {
+        for(var i = data.results.length - 1; i >= 0; i--) {
+          var marker = L.marker(data.results[i].latlng, {
+            icon: locationMarker,
+            title: data.results[i].text,
+            clickable: true
+          });
+          that.results.addLayer(marker);
+          marker.bindPopup(data.results[i].text).openPopup();
+        }
       }
     });
+
 
     this.results.on('contextmenu', function(evt) {
       that.results.clearLayers();
     });
   }
-
 });
