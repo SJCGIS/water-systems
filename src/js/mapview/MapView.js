@@ -109,7 +109,7 @@ L.App.MapView = L.Class.extend({
     });
 
     this._waterSystemsLocations.bindPopup(function(feature){
-      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {SysGrp}</p>', feature.properties);
+      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {Sys_Grp}</p>', feature.properties);
     });
 
     this._waterSystemsPoly = L.esri.featureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/1', {
@@ -118,7 +118,7 @@ L.App.MapView = L.Class.extend({
       proxy: 'http://sjcgis.org/proxy/proxy.ashx',
       minZoom: 15,
       style: function(feature) {
-        switch(feature.properties.SysGrp) {
+        switch(feature.properties.Sys_Grp) {
           case 'A':
           return {color: '#abd9e9', fillOpacity: 0.5};
           case 'A-TNC':
@@ -135,7 +135,7 @@ L.App.MapView = L.Class.extend({
     });
 
     this._waterSystemsPoly.bindPopup(function(feature) {
-      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {SysGrp}</p>', feature.properties);
+      return L.Util.template('<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {Sys_Grp}</p>', feature.properties);
     });
 
 //    this._map.addLayer(referenceOverlay);
