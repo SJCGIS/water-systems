@@ -1,11 +1,43 @@
 # San Juan County Water Systems
 
-A web application showing water system boundaries in San Juan County. Water system boundaries are defined by the parcels included in the water system as set in the San Juan County Health Department database. Mapping errors should be directed to sjcgis@sanjuanco.com.
+A web application showing water system boundaries in San Juan County. Water system boundaries are defined by the parcels included in the water system as set in the San Juan County Health Department database. Report mapping errors by sending an email to [sjcgis@sanjuanco.com](mailto:sjcgis@sanjuanco.com) or by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
 
-## Features:
+## Features
 
-* Uses [Esri-Leaflet](http://github.com/esri/esri-leaflet) with County ArcGIS Server map services
-* Search by water system name, address, or parcel number.
+- Uses [Esri-Leaflet](http://github.com/esri/esri-leaflet) with County ArcGIS Server map services
+- Search by water system name, address, or parcel number.
+
+## Contributions
+
+Please read [How To Contribute](http://github.com/sjcgis/water-systems/blob/master/CONTRIBUTING.MD).
+
+## How to build it yourself (Advanced)
+
+1) Install [node.js](https://nodejs.org/).
+
+2) Download the [Water-Systems.zip](https://github.com/SJCGIS/water-systems/archive/master.zip) file and extract it to a location.
+
+3) Alternatively, install [Git](http://www.git-scm.com/) and clone the repository. [Learn to Use Git here](https://try.github.io/).
+
+4) Open a terminal or command window (Start - Run - CMD on Windows).
+
+5) Change the directory (```cd```) to the location of ```water-systems``` on your computer where you extracted the zip file (or cloned the git repository). Example: ```cd C:\water-systems```
+
+6) Type ```npm install``` to install all the required dependencies (requires internet connection).
+
+7) Type ```npm install -g grunt``` to install the Grunt build tools globally (may require administrator permissions).
+
+8) Type ```grunt``` to run the application locally in your browser.
+
+9) Type ```grunt build``` to compile the water-systems app into the ```dist``` folder.
+
+10) Move the contents of the ```dist``` folder to a web-enabled directory (Example: ```c:\inetpub\wwwroot\water-systems```) or a web hosting service.
+
+11) Report bugs or installation problems by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
+
+## Change Log
+
+Code changes are reported in the [Change Log](https://github.com/SJCGIS/water-systems/blob/master/CHANGELOG.MD). However, changes to maps may not be included.
 
 ## Licensing
 Copyright 2015 San Juan County GIS
