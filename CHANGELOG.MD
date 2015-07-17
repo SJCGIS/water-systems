@@ -1,6 +1,14 @@
 # Change Log
 Al notable changes to water-systems web application will be documented in this file. Corrections to the water system maps may not be reflected here. This project adheres to [Semantic Versioning](http://semver.org).
 
+## Unreleased
+
+### Added
+
+- Popup includes "More Info" link the points directly to water system information from WA Department of Health Sentry Database.
+
+- Users receive a no results found notification when geosearch is unsuccessful.
+
 ## 0.2.0 - 2015-07-09
 
 ### Added

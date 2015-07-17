@@ -98,7 +98,7 @@ L.App.MapView = L.Class.extend({
     this._opLayers = null;
 
     var popupTemplate = '<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {Sys_Grp}</p>';
-    //popupTemplate += '<a target="_blank" href="https://fortress.wa.gov/doh/eh/portal/odw/si/singlesystemviews/geninfosinglesys.aspx?orgnum=&xid={X_ID}">More Info</a>';
+    popupTemplate += '<a target="_blank" href="https://fortress.wa.gov/doh/eh/portal/odw/si/singlesystemviews/geninfosinglesys.aspx?orgnum=&xid={X_ID}">Additional Info</a>';
 
     this._waterSystemsLocations = new ClusteredFeatureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0', {
       proxy: 'http://sjcgis.org/proxy/proxy.ashx',
