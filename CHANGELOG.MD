@@ -9,6 +9,9 @@ Al notable changes to water-systems web application will be documented in this f
 
 - Users receive a no results found notification when geosearch is unsuccessful.
 
+- Add CONTRIBUTING.MD instructions for contributing to the project.
+
+
 ## 0.2.0 - 2015-07-09
 
 ### Added
