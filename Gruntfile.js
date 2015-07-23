@@ -204,7 +204,7 @@ module.exports = function (grunt) {
 
   //JS
   grunt.registerTask('js:dev', ['jshint', 'browserify', 'test']);
-  grunt.registerTask('js:prod', ['test', 'browserify', 'uglify']);
+  grunt.registerTask('js:prod', ['browserify', 'uglify', 'test']);
 
   // CSS
   grunt.registerTask('css:dev', ['copy:css', 'sass']);
