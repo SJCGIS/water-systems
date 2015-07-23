@@ -27,13 +27,17 @@ Please read [How To Contribute](http://github.com/sjcgis/water-systems/blob/mast
 
 7) Type ```npm install -g grunt``` to install the Grunt build tools globally (may require administrator permissions).
 
-8) Type ```grunt``` to run the application locally in your browser.
+8) Copy ```ga.secret.js``` to ```ga.js``` and enter your [Google Analytics](http://analytics.google.com) ID.
 
-9) Type ```grunt build``` to compile the water-systems app into the ```dist``` folder.
+9) Copy ```maptiks.secret.js``` to ```maptiks.js`` and enter your [Maptiks Analytics](http://maptiks.com) ID.
 
-10) Move the contents of the ```dist``` folder to a web-enabled directory (Example: ```c:\inetpub\wwwroot\water-systems```) or a web hosting service.
+10) Type ```grunt``` to run the application locally in your browser.
 
-11) Report bugs or installation problems by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
+11) Type ```grunt build:prod``` to compile the water-systems app into the ```dist``` folder.
+
+12) Move the contents of the ```dist``` folder to a web-enabled directory (Example: ```c:\inetpub\wwwroot\water-systems```) or a web hosting service.
+
+13) Report bugs or installation problems by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
 
 ## Change Log
 
