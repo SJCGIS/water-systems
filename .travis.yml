@@ -4,6 +4,8 @@ node_js:
   - "0.10"
 before_install:
   - npm install -g grunt-cli
+  - cp src/js/ga.secret.js src/js/ga.js
+  - cp src/js/maptiks.secret.js src/js/maptiks.js
 notifications:
   email:
     on_success: change
