@@ -1,6 +1,6 @@
 {
   "name": "water-systems",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web application showing water system boundaries in San Juan County. Water system boundaries are defined by the parcels included in the water system as set in the San Juan County Health Department database. Mapping errors should be directed to sjcgis@sanjuanco.com.",
   "main": "gruntfile.js",
   "scripts": {
@@ -22,8 +22,8 @@
     "connect-livereload": "^0.5.3",
     "drmonty-leaflet-awesome-markers": "^2.0.2",
     "esri-leaflet": "^1.0.0",
-    "esri-leaflet-clustered-feature-layer": "^1.0.0-rc.4",
-    "esri-leaflet-geocoder": "^1.0.0-rc.4",
+    "esri-leaflet-clustered-feature-layer": "^1.0.2",
+    "esri-leaflet-geocoder": "^1.0.2",
     "font-awesome": "^4.3.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.8.0",
