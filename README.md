@@ -29,22 +29,20 @@ Please read [How To Contribute](http://github.com/sjcgis/water-systems/blob/mast
 
 8) Copy ```ga.secret.js``` to ```ga.js``` and enter your [Google Analytics](http://analytics.google.com) ID.
 
-9) Copy ```maptiks.secret.js``` to ```maptiks.js`` and enter your [Maptiks Analytics](http://maptiks.com) ID.
+9) Type ```grunt``` to run the application locally in your browser.
 
-10) Type ```grunt``` to run the application locally in your browser.
+10) Type ```grunt build:prod``` to compile the water-systems app into the ```dist``` folder.
 
-11) Type ```grunt build:prod``` to compile the water-systems app into the ```dist``` folder.
+11) Move the contents of the ```dist``` folder to a web-enabled directory (Example: ```c:\inetpub\wwwroot\water-systems```) or a web hosting service.
 
-12) Move the contents of the ```dist``` folder to a web-enabled directory (Example: ```c:\inetpub\wwwroot\water-systems```) or a web hosting service.
-
-13) Report bugs or installation problems by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
+12) Report bugs or installation problems by [submitting an issue on GitHub](http://github.com/sjcgis/water-systems/issues/new).
 
 ## Change Log
 
 Code changes are reported in the [Change Log](https://github.com/SJCGIS/water-systems/blob/master/CHANGELOG.MD). However, changes to maps may not be included.
 
 ## Licensing
-Copyright 2015 San Juan County GIS
+Copyright 2017 San Juan County GIS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
