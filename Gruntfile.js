@@ -1,10 +1,10 @@
 /*global module:false*/
 
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
+var LIVERELOAD_PORT = 35729
+var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT })
 var mountFolder = function (connect, dir) {
-  return connect['static'](require('path').resolve(dir));
-};
+  return connect['static'](require('path').resolve(dir))
+}
 module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
@@ -37,28 +37,13 @@ module.exports = function (grunt) {
         dest: 'dist/img/',
         src: [
           'leaflet/dist/images/*',
-          'esri-leaflet-geocoder/dist/img/*',
-          'drmonty-leaflet-awesome-markers/css/images/*'
+          'esri-leaflet-geocoder/dist/img/*'
         ],
         flatten: true,
         expand: true
       },
-      css: {
-        files: [{
-          cwd: 'node_modules',
-          expand: true,
-          src: ['leaflet/dist/leaflet.css'],
-          dest: 'node_modules/leaflet/dist/leaflet.scss'
-        }]
-      },
       fonts: {
-        files: [{
-          cwd: 'node_modules',
-          dest: 'dist/fonts/',
-          src: ['font-awesome/fonts/*'],
-          flatten: true,
-          expand: true
-        }]
+        files: []
       }
     },
     cssmin: {
@@ -67,7 +52,7 @@ module.exports = function (grunt) {
       },
       target: {
         files: {
-          'dist/css/app.min.css': ['dist/css/app_pure.css']
+          'dist/app.min.css': ['dist/app.css']
         }
       }
     },
@@ -96,7 +81,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    //Open default browser at the app
+    // Open default browser at the app
     open: {
       dev: { path: 'http://localhost:<%= connect.options.port %>/' },
       prod: { path: 'http://localhost:<%= connect.options.port %>/' }
@@ -119,19 +104,17 @@ module.exports = function (grunt) {
       },
       target: {
         src: ['dist/index.html', 'dist/js/L.App.js'],
-        css: ['dist/css/app.css'],
-        dest: 'dist/css/app_pure.css'
-      }
-    },
-    sass: {
-      options: {
-        style: 'compressed',
-        includePaths: ['node_modules']
-      },
-      dist: {
-        files: {
-          'dist/css/app.css': 'src/sass/site.scss'
-        }
+        css: [
+          './node_modules/leaflet/dist/leaflet.css',
+          './node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css',
+          './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
+          './node_modules/leaflet.markercluster/dist/MarkerCluster.css',
+          './node_modules/open-iconic/font/css/open-iconic.min.css',
+          './node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.min.css',
+          './node_modules/humane-js/themes/bigbox.css',
+          './src/css/*.css'
+        ],
+        dest: 'dist/app.css'
       }
     },
     uglify: {
@@ -148,7 +131,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    //setup watch tasks
+    // setup watch tasks
     watch: {
       options: {
         nospan: true,
@@ -163,8 +146,8 @@ module.exports = function (grunt) {
         tasks: ['processhtml:prod']
       },
       stylesheets: {
-        files: ['src/sass/**/*.scss'],
-        tasks: ['sass']
+        files: ['src/css/**/*.css'],
+        tasks: ['purifycss']
       },
       jsdev: {
         files: ['src/js/*.js', 'src/js/**/*.js'],
@@ -182,46 +165,45 @@ module.exports = function (grunt) {
         options: { livereload: LIVERELOAD_PORT }
       }
     }
-  });
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-focus');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-processhtml');
-  grunt.loadNpmTasks('grunt-purifycss');
-  grunt.loadNpmTasks('grunt-sass');
+  })
+  grunt.loadNpmTasks('grunt-browserify')
+  grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.loadNpmTasks('grunt-contrib-connect')
+  grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-contrib-cssmin')
+  grunt.loadNpmTasks('grunt-contrib-jshint')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-focus')
+  grunt.loadNpmTasks('grunt-karma')
+  grunt.loadNpmTasks('grunt-open')
+  grunt.loadNpmTasks('grunt-processhtml')
+  grunt.loadNpmTasks('grunt-purifycss')
 
   // Tasks
-  grunt.registerTask('hint', ['jshint']);
-  grunt.registerTask('test', ['karma']);
+  grunt.registerTask('hint', ['jshint'])
+  grunt.registerTask('test', ['karma'])
 
-  //JS
-  grunt.registerTask('js:dev', ['jshint', 'browserify', 'test']);
-  grunt.registerTask('js:prod', ['browserify', 'uglify', 'test']);
+  // JS
+  grunt.registerTask('js:dev', ['browserify', 'test'])
+  grunt.registerTask('js:prod', ['browserify', 'uglify', 'test'])
 
   // CSS
-  grunt.registerTask('css:dev', ['copy:css', 'sass']);
-  grunt.registerTask('css:prod', ['copy:css', 'sass', 'purifycss', 'cssmin']);
+  grunt.registerTask('css:dev', ['purifycss'])
+  grunt.registerTask('css:prod', ['purifycss', 'cssmin'])
 
   // Assets
-  grunt.registerTask('assets:dev', ['copy:fonts', 'copy:images']);
-  grunt.registerTask('assets:prod', ['copy:fonts', 'copy:images']);
+  grunt.registerTask('assets:dev', ['copy:images'])
+  grunt.registerTask('assets:prod', ['copy:images'])
 
   // Build wrappers
-  grunt.registerTask('build:dev', ['js:dev', 'assets:dev', 'processhtml:dev', 'css:dev']);
-  grunt.registerTask('build:prod', ['js:prod', 'assets:prod', 'processhtml:prod', 'css:prod']);
+  grunt.registerTask('build:dev', ['js:dev', 'assets:dev', 'processhtml:dev', 'css:dev'])
+  grunt.registerTask('build:prod', ['js:prod', 'assets:prod', 'processhtml:prod', 'css:prod'])
   // Serve locally on :8000
-  grunt.registerTask('serve:dev', ['connect:dev', 'open:dev', 'focus:dev']);
-  grunt.registerTask('serve:prod', ['connect:prod', 'open:prod', 'focus:prod']);
+  grunt.registerTask('serve:dev', ['connect:dev', 'open:dev', 'focus:dev'])
+  grunt.registerTask('serve:prod', ['connect:prod', 'open:prod', 'focus:prod'])
   // Overall build targets... dev and prod.  Default to dev
-  grunt.registerTask('dev', ['build:dev', 'serve:dev']);
-  grunt.registerTask('prod', ['build:prod', 'serve:prod']);
-  grunt.registerTask('default', ['dev']);
-};
+  grunt.registerTask('dev', ['build:dev', 'serve:dev'])
+  grunt.registerTask('prod', ['build:prod', 'serve:prod'])
+  grunt.registerTask('default', ['dev'])
+}
