@@ -1,6 +1,13 @@
 # Change Log
 Al notable changes to water-systems web application will be documented in this file. Corrections to the water system maps may not be reflected here. This project adheres to [Semantic Versioning](http://semver.org).
 
+## 1.1.0 - 2017-01-24
+
+### Changed
+
+- Update dependencies
+- Replace Font Awesome with Open Iconic
+
 ## 1.0.1 - 2015-08-11
 
 ### Added
