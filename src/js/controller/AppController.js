@@ -1,7 +1,8 @@
-require('../mapview/MapView');
-require('esri-leaflet-geocoder');
-require('sidebar-v2/js/leaflet-sidebar');
+var L = require('leaflet');
+var EsriGeocoder = require('esri-leaflet-geocoder');
 var humane = require('humane-js');
+require('leaflet-sidebar-v2');
+require('../mapview/MapView');
 
 L.App = L.App || {};
 
@@ -21,22 +22,22 @@ L.App.AppController = L.Class.extend({
       position: 'topright'
     }).addTo(this.mapView._map);
 
-    this.searchControl = new L.esri.Geocoding.Controls.Geosearch({
+    this.searchControl = new EsriGeocoder.Geosearch({
       providers: [
-        new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+        new EsriGeocoder.FeatureLayerProvider({
           label: 'Water System',
           url: 'http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0',
           searchFields: ['Sys_Name', 'Sys_ID'],
-          proxy: 'http://sjcgis.org/proxy/proxy.ashx',
+          //proxy: 'http://sjcgis.org/proxy/proxy.ashx',
           bufferRadius: 200,
           formatSuggestion: function(feature) {
             return feature.properties.Sys_Name;
           }
         }),
-        new L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService({
+        new EsriGeocoder.GeocodeServiceProvider({
           url: 'http://sjcgis.org/arcgis/rest/services/Tools/Polaris_Geolocator/GeocodeServer',
           label: 'Polaris Geocoder',
-          proxy: 'http://sjcgis.org/proxy/proxy.ashx'
+          //proxy: 'http://sjcgis.org/proxy/proxy.ashx'
         })
       ],
       useArcgisWorldGeocoder: false,
@@ -44,11 +45,11 @@ L.App.AppController = L.Class.extend({
       useMapBounds: false
     }).addTo(this.mapView._map);
 
-    this.sidebar = new L.control.sidebar('sidebar').addTo(this.mapView._map);
+    this.sidebar = L.control.sidebar('sidebar').addTo(this.mapView._map);
 
     this.sidebar.open('home');
 
-    this.results = new L.featureGroup().addTo(this.mapView._map);
+    this.results = new L.FeatureGroup().addTo(this.mapView._map);
 
     this.setupConnections();
   },
@@ -58,13 +59,6 @@ L.App.AppController = L.Class.extend({
 
     var that = this;
 
-    var locationMarker = L.AwesomeMarkers.icon({
-      icon: 'fa-thumb-tack',
-      prefix: 'fa',
-      markerColor: 'red',
-      iconColor: 'white'
-    });
-
     this.searchControl.on('results', function(data) {
       that.results.clearLayers();
       if(data.results.length === 0){
@@ -72,7 +66,6 @@ L.App.AppController = L.Class.extend({
       } else {
         for(var i = data.results.length - 1; i >= 0; i--) {
           var marker = L.marker(data.results[i].latlng, {
-            icon: locationMarker,
             title: data.results[i].text,
             clickable: true
           });

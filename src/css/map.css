@@ -1,0 +1,15 @@
+body {
+  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+#map {
+  position:absolute;
+  left:0px;
+  top:0px;
+  bottom:0;
+  right:0;
+}
+
+.leaflet-top {
+  margin-top: 50px;
+}

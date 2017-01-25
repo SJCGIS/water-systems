@@ -1,5 +1,7 @@
+var L = require('leaflet');
+var EsriLeaflet = require('esri-leaflet');
 require('leaflet.markercluster');
-var ClusteredFeatureLayer = require('esri-leaflet-clustered-feature-layer');
+var ClusteredFeatureLayer = require('esri-leaflet-cluster');
 
 L.App = L.App || {};
 
@@ -73,12 +75,14 @@ L.App.MapView = L.Class.extend({
 
     this._baseLayers = null;
 
-    var aerialBasemap = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/Aerials_2013_WM/MapServer', {
+    var aerialBasemap = EsriLeaflet.tiledMapLayer({
+      url: 'http://sjcgis.org/arcgis/rest/services/Basemaps/Aerials_2013_WM/MapServer',
       attribution: 'Pictometry International',
       maptiks_id: 'aerialBasemap'
     });
 
-    var generalBasemap = L.esri.tiledMapLayer('http://sjcgis.org/arcgis/rest/services/Basemaps/General_Basemap_WM/MapServer', {
+    var generalBasemap = EsriLeaflet.tiledMapLayer({
+      url: 'http://sjcgis.org/arcgis/rest/services/Basemaps/General_Basemap_WM/MapServer',
       attribution: 'San Juan County GIS',
       maptiks_id: 'generalBasemap'
     });
@@ -100,31 +104,33 @@ L.App.MapView = L.Class.extend({
     var popupTemplate = '<p>{Sys_Name}<br/>State ID#: {Sys_ID}<br/>Group: {Sys_Grp}</p>';
     popupTemplate += '<a target="_blank" href="https://fortress.wa.gov/doh/eh/portal/odw/si/singlesystemviews/geninfosinglesys.aspx?orgnum=&xid={X_ID}">Additional Info</a>';
 
-    this._waterSystemsLocations = new ClusteredFeatureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0', {
-      proxy: 'http://sjcgis.org/proxy/proxy.ashx',
+    this._waterSystemsLocations = ClusteredFeatureLayer.featureLayer({
+      url: 'http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/0',
+      //proxy: 'http://sjcgis.org/proxy/proxy.ashx',
       disableClusteringAtZoom: 15,
       singleMarkerMode: true,
       maptiks_id: 'waterSystemsLocations'
     });
 
-    this._waterSystemsLocations.bindPopup(function(feature){
-      return L.Util.template(popupTemplate, feature.properties);
+    this._waterSystemsLocations.bindPopup(function(evt){
+      return L.Util.template(popupTemplate, evt.feature.properties);
     });
 
-    this._waterSystemsPoly = L.esri.featureLayer('http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/1', {
+    this._waterSystemsPoly = EsriLeaflet.featureLayer({
+      url: 'http://sjcgis.org/arcgis/rest/services/HCS/Water_Systems/MapServer/1',
       simplifyFactor: 0.2,
       precision: 5,
-      proxy: 'http://sjcgis.org/proxy/proxy.ashx',
+      //proxy: 'http://sjcgis.org/proxy/proxy.ashx',
       minZoom: 15,
       style: function(feature) {
         switch(feature.properties.Sys_Grp) {
-          case 'A':
+        case 'A':
           return {color: '#abd9e9', fillOpacity: 0.5};
-          case 'A-TNC':
+        case 'A-TNC':
           return {color: '#2c7bb6', fillOpacity: 0.5};
-          case 'B':
+        case 'B':
           return {color: '#fdae61', fillOpacity: 0.5};
-          case '2-PTY':
+        case '2-PTY':
           return {color: '#d7191c', fillOpacity: 0.5};
         default:
           return {color: 'white', fillOpacity: 0.5};
@@ -133,8 +139,8 @@ L.App.MapView = L.Class.extend({
       maptiks_id: 'waterSystemsPoly'
     });
 
-    this._waterSystemsPoly.bindPopup(function(feature) {
-      return L.Util.template(popupTemplate, feature.properties);
+    this._waterSystemsPoly.bindPopup(function(evt) {
+      return L.Util.template(popupTemplate, evt.feature.properties);
     });
 
     this._map.addLayer(this._waterSystemsLocations);

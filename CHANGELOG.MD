@@ -7,6 +7,10 @@ Al notable changes to water-systems web application will be documented in this f
 
 - Disclaimer tab added
 
+### Fixed
+
+- Esri Leaflet 1.0 requires url parameter for all layer constructors to be put in options.
+
 ## 1.0.0 - 2015-07-21
 
 ### Added
