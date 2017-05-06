@@ -53,7 +53,7 @@
     "leaflet.markercluster": "^1.0.0",
     "mocha": "^3.1.2",
     "open-iconic": "^1.1.1",
-    "uglify-js": "^2.4.21"
+    "uglify-js": "^3.0.0"
   },
   "dependencies": {}
 }
