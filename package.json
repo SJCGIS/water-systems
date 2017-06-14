@@ -19,7 +19,7 @@
   "homepage": "https://github.com/sjcgis/water-systems",
   "devDependencies": {
     "browserify": "^14.0.0",
-    "chai": "^3.5.0",
+    "chai": "^4.0.2",
     "connect-livereload": "^0.6.0",
     "esri-leaflet": "^2.0.6",
     "esri-leaflet-cluster": "^2.0.0",
