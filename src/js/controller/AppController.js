@@ -35,8 +35,8 @@ L.App.AppController = L.Class.extend({
           }
         }),
         new EsriGeocoder.GeocodeServiceProvider({
-          url: 'http://sjcgis.org/arcgis/rest/services/Tools/Polaris_Geolocator/GeocodeServer',
-          label: 'Polaris Geocoder',
+          url: 'http://sjcgis.org/arcgis/rest/services/Tools/SJC_Locator/GeocodeServer',
+          label: 'San Juan County Geocoder',
           //proxy: 'http://sjcgis.org/proxy/proxy.ashx'
         })
       ],
