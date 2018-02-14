@@ -51,7 +51,7 @@
     "leaflet-sidebar-v2": "^1.0.0",
     "leaflet.icon.glyph": "^0.2.0",
     "leaflet.markercluster": "^1.0.0",
-    "mocha": "^3.1.2",
+    "mocha": "^5.0.1",
     "open-iconic": "^1.1.1",
     "uglify-js": "^3.0.0"
   },
